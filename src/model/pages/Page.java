@@ -70,5 +70,9 @@ public abstract class Page {
 		}
 		return true;
 	}
+	
+	public void submit() {
+		//TODO
+	}
 
 }
