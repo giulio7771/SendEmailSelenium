@@ -58,16 +58,16 @@ public abstract class Page {
 	 * @return True if all ran successful, false if it did not
 	 */
 	public boolean click(By.ByXPath xpath) {
-		try {
+//		try {
 			WebElement button = driver.getDriver().findElement(xpath);
 			driver.waitUntilClickable(button);
 			button.click();
-		} catch (Exception e) {
-			System.out.println("Error during clickdWaiting by EmailLoginPage." + e.getMessage());
-			System.out.println("DriverElement var state: " + driver.toString());
-			System.out.println("xpath param value: " + xpath.toString());
-			return false;
-		}
+//		} catch (Exception e) {
+//			System.out.println("Error during clickdWaiting by EmailLoginPage." + e.getMessage());
+//			System.out.println("DriverElement var state: " + driver.toString());
+//			System.out.println("xpath param value: " + xpath.toString());
+//			return false;
+//		}
 		return true;
 	}
 	
