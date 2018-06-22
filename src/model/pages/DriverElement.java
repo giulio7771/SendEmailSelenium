@@ -21,7 +21,7 @@ public class DriverElement {
 	private DriverElement() {
 		String globalpath = System.getProperty("user.dir");
 		System.setProperty("webdriver.chrome.driver", globalpath+"//Libraries\\chromedriver.exe");
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);	
+		//driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);	
 		driver = new ChromeDriver();
 		waiter = new WebDriverWait(driver, 10);
 	}

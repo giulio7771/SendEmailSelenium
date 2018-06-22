@@ -10,6 +10,7 @@ import model.pages.Page;
 
 public class EmailLoginPage extends Page{
 
+	protected static EmailLoginPage instance;
 	
 	
 	private By.ByXPath usernameField = (ByXPath) By.xpath("//input[@type = 'email' and @autocomplete = 'username']");
@@ -55,7 +56,8 @@ public class EmailLoginPage extends Page{
 		writeOnWith(usernameField, username);
 		click(usernameButton);
 		writeOnWith(passwordField, password);
-		click(passwordButton);
+		//click(passwordButton);
+		submit(passwordField);
 		
 		
 		//		try {

@@ -2,12 +2,12 @@ package model.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 import model.pages.email.EmailLoginPage;
 
 public abstract class Page {
-	protected static EmailLoginPage instance;
 
 	protected DriverElement driver;
 
@@ -25,7 +25,6 @@ public abstract class Page {
 		// try {
 		WebElement field = null;
 
-		boolean exception = true;
 		while (field == null) {
 			try {
 				field = driver.getDriver().findElement(xpath);
@@ -37,16 +36,16 @@ public abstract class Page {
 		driver.waitUntilReady(xpath);
 		driver.waitUntilClickable(field);
 		field.sendKeys(value);
-//		 } catch (Exception e) {
-//		 System.out.println("Error during fillFieldWaiting by EmailLoginPage" +
-//		 e.getMessage());
-//		System.out.println("DriverElement var state: " + driver.toString());
-//		System.out.println("'xpath' param value: " + xpath.toString());
-//		System.out.println("'value' param value: " + value);
-//		 return false;
-//		 }
-//		
-		 return true;
+		// } catch (Exception e) {
+		// System.out.println("Error during fillFieldWaiting by EmailLoginPage" +
+		// e.getMessage());
+		// System.out.println("DriverElement var state: " + driver.toString());
+		// System.out.println("'xpath' param value: " + xpath.toString());
+		// System.out.println("'value' param value: " + value);
+		// return false;
+		// }
+		//
+		return true;
 	}
 
 	/**
@@ -58,21 +57,29 @@ public abstract class Page {
 	 * @return True if all ran successful, false if it did not
 	 */
 	public boolean click(By.ByXPath xpath) {
-//		try {
-			WebElement button = driver.getDriver().findElement(xpath);
+		// try {
+		WebElement button = driver.getDriver().findElement(xpath);
+		try {
 			driver.waitUntilClickable(button);
 			button.click();
-//		} catch (Exception e) {
-//			System.out.println("Error during clickdWaiting by EmailLoginPage." + e.getMessage());
-//			System.out.println("DriverElement var state: " + driver.toString());
-//			System.out.println("xpath param value: " + xpath.toString());
-//			return false;
-//		}
+		} catch (StaleElementReferenceException e) {
+			System.out.println("Exection on click");
+			
+		}catch(NoSuchElementException e) {
+			System.out.println("no such element exception");
+		}
+		// } catch (Exception e) {
+		// System.out.println("Error during clickdWaiting by EmailLoginPage." +
+		// e.getMessage());
+		// System.out.println("DriverElement var state: " + driver.toString());
+		// System.out.println("xpath param value: " + xpath.toString());
+		// return false;
+		// }
 		return true;
 	}
-	
-	public void submit() {
-		//TODO
+
+	public void submit(By.ByXPath xpath) {
+		driver.getDriver().findElement(xpath).submit();
 	}
 
 }
