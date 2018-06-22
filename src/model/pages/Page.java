@@ -21,17 +21,40 @@ public abstract class Page {
 	 *            String text to fill the field
 	 * @return True if all ran successful, false if it did not
 	 */
-	public boolean writeOnWith(By.ByXPath xpath, String value) {
+	public void writeOnWith(By.ByXPath xpath, String value) {
 		// try {
 		WebElement field = null;
 
-		while (field == null) {
+		
+		for (int i = 0; i < 60; i++) {
+
 			try {
 				field = driver.getDriver().findElement(xpath);
+				break;
 			} catch (NoSuchElementException e) {
+
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				System.out.println(e.getMessage());
 			}
+			//With the last iteration of the for loop and nothing was found we throw the exception
+			if (i == 59) {
+				throw new NoSuchElementException("After 60 times trying to find this element we couldn't");
+			}
+
 		}
+		// deprecated way to wait for the WebElement gets ready
+		// while (field == null) {
+		// try {
+		// field = driver.getDriver().findElement(xpath);
+		// } catch (NoSuchElementException e) {
+		// System.out.println(e.getMessage());
+		// }
+		// }
 
 		driver.waitUntilReady(xpath);
 		driver.waitUntilClickable(field);
@@ -45,7 +68,6 @@ public abstract class Page {
 		// return false;
 		// }
 		//
-		return true;
 	}
 
 	/**
@@ -85,7 +107,7 @@ public abstract class Page {
 				button = driver.getDriver().findElement(xpath);
 
 			}
-			if(i == 59) {
+			if (i == 59) {
 				throw new NoSuchElementException("After 60 times trying to find this element we couldn't");
 			}
 		}
