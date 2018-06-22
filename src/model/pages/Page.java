@@ -56,17 +56,26 @@ public abstract class Page {
 	 *            Any clickable element
 	 * @return True if all ran successful, false if it did not
 	 */
-	public boolean click(By.ByXPath xpath) {
+	public void click(By.ByXPath xpath) {
 		// try {
 		WebElement button = driver.getDriver().findElement(xpath);
-		try {
-			driver.waitUntilClickable(button);
-			button.click();
-		} catch (StaleElementReferenceException e) {
-			System.out.println("Exection on click");
-			
-		}catch(NoSuchElementException e) {
-			System.out.println("no such element exception");
+		driver.waitUntilClickable(button);
+		while (true) {
+			try {
+				button = driver.getDriver().findElement(xpath);
+				button.click();
+				return;
+			} catch (StaleElementReferenceException e) {
+				System.out.println("staleElementReferenceException on click");
+
+			} catch (NoSuchElementException e) {
+				System.out.println("no such element exception");
+			} catch (Exception e) {
+				System.out.println("other exception on click");
+			}finally{
+				button = driver.getDriver().findElement(xpath);
+				
+			}
 		}
 		// } catch (Exception e) {
 		// System.out.println("Error during clickdWaiting by EmailLoginPage." +
@@ -75,7 +84,7 @@ public abstract class Page {
 		// System.out.println("xpath param value: " + xpath.toString());
 		// return false;
 		// }
-		return true;
+		
 	}
 
 	public void submit(By.ByXPath xpath) {

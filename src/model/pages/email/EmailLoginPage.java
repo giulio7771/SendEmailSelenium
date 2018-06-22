@@ -56,8 +56,8 @@ public class EmailLoginPage extends Page{
 		writeOnWith(usernameField, username);
 		click(usernameButton);
 		writeOnWith(passwordField, password);
-		//click(passwordButton);
-		submit(passwordField);
+		click(passwordButton);
+		//submit(passwordField);
 		
 		
 		//		try {
