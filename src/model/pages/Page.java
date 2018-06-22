@@ -60,23 +60,36 @@ public abstract class Page {
 		// try {
 		WebElement button = driver.getDriver().findElement(xpath);
 		driver.waitUntilClickable(button);
-		while (true) {
+
+		for (int i = 0; i < 60; i++) {
+
 			try {
 				button = driver.getDriver().findElement(xpath);
 				button.click();
 				return;
 			} catch (StaleElementReferenceException e) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 				System.out.println("staleElementReferenceException on click");
 
 			} catch (NoSuchElementException e) {
 				System.out.println("no such element exception");
 			} catch (Exception e) {
 				System.out.println("other exception on click");
-			}finally{
+			} finally {
 				button = driver.getDriver().findElement(xpath);
-				
+
+			}
+			if(i == 59) {
+				throw new NoSuchElementException("After 60 times trying to find this element we couldn't");
 			}
 		}
+
 		// } catch (Exception e) {
 		// System.out.println("Error during clickdWaiting by EmailLoginPage." +
 		// e.getMessage());
@@ -84,7 +97,7 @@ public abstract class Page {
 		// System.out.println("xpath param value: " + xpath.toString());
 		// return false;
 		// }
-		
+
 	}
 
 	public void submit(By.ByXPath xpath) {
