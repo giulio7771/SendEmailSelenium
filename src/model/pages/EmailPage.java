@@ -1,8 +1,15 @@
 package model.pages;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.Test;
+
+//import org.junit.jupiter.api.Test;
+
 import model.pages.email.EmailLoginPage;
 
-public class EmailPage {
+public class EmailPage{
 	static private EmailPage instance; 
 	private EmailLoginPage login;
 	 
@@ -28,6 +35,18 @@ public class EmailPage {
 		 EmailLoginPage.getInstance().login(username, password);
 		 
 	 }
+	 
+	 public String getTitle() {
+		 return login.driver.getDriver().getTitle();
+	 }
+	 
+	 @Test
+	 public void loginTest(String username, String password) {
+		 this.loginWith(username, password);
+		 String title = this.getTitle();
+		 assertEquals("", title);
+	 }
+	 
 	
 	
 }

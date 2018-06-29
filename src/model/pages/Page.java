@@ -19,13 +19,11 @@ public abstract class Page {
 	 *            Any field to be filled
 	 * @param value
 	 *            String text to fill the field
-	 * @return True if all ran successful, false if it did not
 	 */
 	public void writeOnWith(By.ByXPath xpath, String value) {
 		// try {
 		WebElement field = null;
 
-		
 		for (int i = 0; i < 60; i++) {
 
 			try {
@@ -41,7 +39,8 @@ public abstract class Page {
 				}
 				System.out.println(e.getMessage());
 			}
-			//With the last iteration of the for loop and nothing was found we throw the exception
+			// With the last iteration of the for loop and nothing was found we throw the
+			// exception
 			if (i == 59) {
 				throw new NoSuchElementException("After 60 times trying to find this element we couldn't");
 			}
@@ -76,7 +75,6 @@ public abstract class Page {
 	 * 
 	 * @param xpath
 	 *            Any clickable element
-	 * @return True if all ran successful, false if it did not
 	 */
 	public void click(By.ByXPath xpath) {
 		// try {
@@ -122,6 +120,12 @@ public abstract class Page {
 
 	}
 
+	/**
+	 * This methos submit any submitable WebElement
+	 * 
+	 * @param xpath
+	 *            The xpath mail to be submited
+	 */
 	public void submit(By.ByXPath xpath) {
 		driver.getDriver().findElement(xpath).submit();
 	}

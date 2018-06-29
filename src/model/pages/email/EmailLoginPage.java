@@ -79,5 +79,6 @@ public class EmailLoginPage extends Page{
 //		}
 		return false;
 	}
+	
 
 }
